@@ -1,0 +1,423 @@
+/* Reset & Base */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%; /* Ensure body takes up full width */
+  overflow-x: hidden;
+}
+
+body {
+  background-image: url('BG.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'ArialRounded','Segoe UI', 'Inter', sans-serif;
+  color: #333;
+  text-align: center;
+}
+  
+  h1 {
+    margin-top: 40px;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .title-wrapper {
+    display: flex;
+    transform: translate(-50px, 0);
+    align-items: center;
+    justify-content: center;
+    padding: 20px 40px;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto; 
+    flex-wrap: wrap;
+    /* margin-bottom: 0; <-- prevent spacing below */
+    max-width: 1200px;
+    flex-shrink: 0;
+    margin-top: 0; /* Remove top margin */
+    padding-top: 0; /* Reduce padding-top */
+  }
+  
+  .title-lottie {
+    width: 120px; /* Match your image height proportion */
+    height: 120px;
+    /* margin-right: -30px; Overlap slightly if needed */
+    flex: 0 0 auto;
+    margin: 0;
+  }
+  
+  .title-image {
+    height: auto;
+    max-width: 500px;
+    z-index: 1; /* Ensure image stays on top */
+    /* margin: 0; */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  .title-chef {
+    margin-right: 0px; /* Adjust spacing */
+    pointer-events: none; /* Prevent interaction */
+  }
+  
+  /* Animation states */
+  .chef-active {
+    filter: drop-shadow(0 0 5px rgba(255, 200, 0, 0.7));
+  }
+    /* Customer specific styling */
+  .title-lottie.customer {
+    width: 100px;
+    height: 100px;
+    
+    margin: 0;
+  }
+
+  /* Different animation effect for customer */
+  .customer-active {
+    filter: drop-shadow(0 0 8px rgba(100, 200, 255, 0.6));
+  }
+  .title-lottie.customer {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .title-wrapper {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .title-lottie {
+      width: 80px;
+      height: 80px;
+      margin-right: 0;
+      margin-bottom: -15px;
+    }
+  }
+  /* Replace the h1 with image of equal size */
+  .title-image {
+    display: block;
+    margin: 30px auto;
+    height: auto;
+    width: 80%; /* Takes up most of the screen width */
+    max-width: 600px; /* But never wider than this */
+    min-width: 300px; /* And never smaller than this */
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+      .title-image {
+          width: 90%;
+          max-width: 400px;
+      }
+  }
+
+  /* Remove any competing styles */
+  h1 {
+      display: none !important;
+  }
+    
+  /* Form Controls */
+  .container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    margin: 2rem auto;
+    max-width: 420px;
+  }
+  
+  label {
+    font-weight: 500;
+  }
+  
+  input.form-control {
+    border-radius: 10px;
+    padding: 10px;  
+    border: 1px solid #ccc;
+    transition: all 0.2s ease;
+  }
+  
+  input.form-control:focus {
+    border-color: #ff6347;
+    box-shadow: 0 0 0 4px rgba(255, 99, 71, 0.2);
+    outline: none;
+  }
+  
+  /* Buttons */
+  button {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  #startBtn {
+    background-color: #ffb703;
+    border-radius: 8px;
+    
+  }
+  
+  #startBtn:hover {
+    background-color: #fb8500;
+    transform: translateY(-1px);
+    border-radius: 8px;
+  }
+  
+  #stopBtn {
+    background-color: #ef233c;
+    border: none;
+    border-radius: 8px;
+  }
+  
+  #stopBtn:hover {
+    background-color: #d90429;
+    transform: translateY(-1px);
+    border-radius: 8px;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  /* Buffer Box */
+  .buffer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin: 40px auto;
+    padding: 2rem;
+    background-color: #ffe4c4;
+    border-radius: 20px;
+    width: fit-content;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+  }
+  
+  .buffer-item {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border: 2px dashed #bbb;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  }
+  
+  .produced {
+    background-color: #fffaf0;
+    border: 2px solid #ff6347;
+    animation: pulse 0.5s ease;
+  }
+  
+  /* Info Displays */
+  #stateDisplay {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #555;
+    font-style: italic;
+  }
+  
+  .semaphore-display {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .counts {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  /* Animations */
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7);
+    }
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(255, 99, 71, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 99, 71, 0);
+    }
+  }
+/* --- Split View Layout --- */
+.main-container {
+  width: 100%;
+  display: flex;
+  /* align-items: flex-start; */
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  margin-top: 0; /* Remove any top margin */
+  padding-top: 0; /* Remove any top padding */
+}
+
+.controls-panel {
+  flex: 1 1 300px;
+  max-width: 360px;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  border: 4px dashed #ff7d4d;
+}
+
+.sim-panel {
+  flex: 2 1 600px;
+  text-align: left;
+  padding-top: 1rem;
+}
+
+/* Align start/stop buttons */
+.controls-panel #startBtn,
+.controls-panel #stopBtn {
+  width: 48%;
+  margin-right: 2%;
+  margin-bottom: 1rem;
+}
+
+.sim-panel #stateDisplay {
+  margin-bottom: 1rem;
+}
+
+.sim-panel .semaphore-display,
+.sim-panel .counts {
+  margin-bottom: 1rem;
+}
+
+/* Update the semaphore display with colored boxes */
+.semaphore-display div {
+  background-color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.semaphore-display div:nth-child(1) { /* Mutex */
+  background-color: #ffe4c4; /* Light orange */
+  border: 2px solid #ffb703;
+}
+
+.semaphore-display div:nth-child(2) { /* Empty */
+  background-color: #f0f8ff; /* Light blue */
+  border: 2px solid #8ecae6;
+}
+
+.semaphore-display div:nth-child(3) { /* Full */
+  background-color: #f0fff0; /* Light green */
+  border: 2px solid #2a9d8f;
+}
+
+/* Style the counts like a chalkboard scoreboard */
+.counts {
+  background-color: #0d9528;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  display: inline-block;
+  margin: 10px auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border: 3px solid #555;
+  text-shadow: 0 0 5px rgba(255,255,255,0.3);
+}
+
+.counts.produced {
+  background-color: #ffe4c4; /* Light yellow for produce */
+  border: 3px solid #ff6347;
+}
+
+.counts.consumed {
+  background-color: #f0fff0; /* Light green for consume */
+  border: 3px solid #82CD47;
+}
+
+.counts span {
+  font-weight: bold;
+  color: #ffb703; /* Yellow for the numbers */
+}
+
+/* Reorganize the right column layout */
+.sim-info {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 4px dashed #ff7d4d;
+}
+
+/* Ensure buffer appears below everything in the right column */
+.main-container {
+  flex-direction: column;
+  align-items: center;
+}
+
+.buffer {
+  order: 1; /* Ensure buffer appears after sim-info */
+  margin-top: 20px;
+}
+
+/* For larger screens, maintain the side-by-side layout */
+@media (min-width: 992px) {
+  .main-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .controls-panel {
+    flex: 1;
+    max-width: 400px;
+  }
+  
+  .sim-info {
+    flex: 2;
+    margin-left: 20px;
+  }
+}
+
+/* Add glow when active */
+.title-lottie.active {
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+/* Subtle float effect */
+@keyframes subtleFloat {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+.title-lottie {
+  animation: subtleFloat 3s ease-in-out infinite;
+}
