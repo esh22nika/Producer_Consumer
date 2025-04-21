@@ -41,19 +41,26 @@ function sleep(ms) {
 }
 
 async function producer() {
-  while (running && producedCount < totalItems) {
+  while (producedCount < totalItems && running) {
+    if (!running) {
+      stateDisplay.innerText = "Simulation manually stopped.";
+      return;
+    }
+
     console.log(`Produced: ${producedCount} / ${totalItems}, Buffer full: ${full}, Empty: ${empty}`);
 
     if (full === bufferSize) {
       stateDisplay.innerText = "Buffer is full.";
       await sleep(1000);
+      if (!running) return;
 
       if (consumedCount === totalItemsToConsume && producedCount < totalItems) {
         const remaining = totalItems - producedCount;
         stateDisplay.innerText = `Buffer is full. Remaining items to produce: ${remaining}`;
         await sleep(1000);
+        if (!running) return;
         alert(`Buffer is full. Simulation stopped.\nRemaining items to produce: ${remaining}`);
-        break;
+        return;
       }
       continue;
     }
@@ -80,6 +87,7 @@ async function producer() {
     }
 
     await sleep(1000);
+    if (!running) return;
   }
 
   if (producedCount < totalItems) {
@@ -89,19 +97,26 @@ async function producer() {
 }
 
 async function consumer() {
-  while (running && consumedCount < totalItemsToConsume) {
+  while (consumedCount < totalItemsToConsume && running) {
+    if (!running) {
+      stateDisplay.innerText = "Simulation manually stopped.";
+      return;
+    }
+
     console.log(`Consumed: ${consumedCount} / ${totalItemsToConsume}, Buffer full: ${full}, Empty: ${empty}`);
 
     if (full === 0) {
       stateDisplay.innerText = "Buffer is empty.";
       await sleep(1000);
+      if (!running) return;
 
       if (producedCount === totalItems && consumedCount < totalItemsToConsume) {
         const remaining = totalItemsToConsume - consumedCount;
         stateDisplay.innerText = `Buffer is empty. Remaining items to consume: ${remaining}`;
         await sleep(1000);
+        if (!running) return;
         alert(`Buffer is empty. Simulation stopped.\nRemaining items to consume: ${remaining}`);
-        break;
+        return;
       }
       continue;
     }
@@ -132,6 +147,7 @@ async function consumer() {
     }
 
     await sleep(1200);
+    if (!running) return;
 
     if (consumedCount < totalItemsToConsume) {
       const remaining = totalItemsToConsume - consumedCount;
